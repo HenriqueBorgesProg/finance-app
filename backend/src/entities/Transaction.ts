@@ -1,12 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 
 import { TransactionType } from "../enums/finance.enums";
-import { users } from "./User";
-import { accounts } from "./Account";
-import { categories } from "./Category";
+import { User } from "./User";
+import { Account } from "./Account";
+import { Category } from "./Category";
 
 @Entity("transactions")
-export class transactions {
+export class Transaction {
     @PrimaryGeneratedColumn("increment")
     id?: number;
 
@@ -43,15 +43,15 @@ export class transactions {
     @UpdateDateColumn()
     updatedAt?: Date;
 
-    @ManyToOne(() => users, (user) => user.transactions)
+    @ManyToOne(() => User, (user) => user.transactions)
     @JoinColumn({ name: "userId" })
-    user?: users;
+    user?: User;
 
-    @ManyToOne(() => accounts, (account) => account.transactions)
+    @ManyToOne(() => Account, (account) => account.transactions)
     @JoinColumn({ name: "accountId" })
-    account?: accounts;
+    account?: Account;
 
-    @ManyToOne(() => categories, (category) => category.transactions, { nullable: true })
+    @ManyToOne(() => Category, (category) => category.transactions, { nullable: true })
     @JoinColumn({ name: "categoryId" })
-    category?: categories | null;
+    category?: Category | null;
 }

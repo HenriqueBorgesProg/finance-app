@@ -1,12 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Index, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { AssetType } from "../enums/finance.enums";
-import { users } from "./User";
-import { investment_operations } from "./InvestmentOperation";
-import { asset_price_history } from "./AssetPriceHistory";
+import { User } from "./User";
+import { InvestmentOperation } from "./InvestmentOperation";
+import { AssetPriceHistory } from "./AssetPriceHistory";
 
 @Entity("assets")
 @Index(["userId", "symbol"], { unique: true })
-export class assets {
+export class Asset {
     @PrimaryGeneratedColumn("increment")
     id?: number;
 
@@ -40,13 +40,13 @@ export class assets {
     @UpdateDateColumn()
     updatedAt?: Date;
 
-    @ManyToOne(() => users, (user) => user.assets)
+    @ManyToOne(() => User, (user) => user.assets)
     @JoinColumn({ name: "userId" })
-    user?: users;
+    user?: User;
 
-    @OneToMany(() => investment_operations, (operation) => operation.asset)
-    investmentOperations?: investment_operations[];
+    @OneToMany(() => InvestmentOperation, (operation) => operation.asset)
+    investmentOperations?: InvestmentOperation[];
 
-    @OneToMany(() => asset_price_history, (priceHistory) => priceHistory.asset)
-    priceHistory?: asset_price_history[];
+    @OneToMany(() => AssetPriceHistory, (priceHistory) => priceHistory.asset)
+    priceHistory?: AssetPriceHistory[];
 }

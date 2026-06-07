@@ -1,13 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
-import { accounts } from "./Account";
-import { categories } from "./Category";
-import { transactions } from "./Transaction";
-import { assets } from "./Asset";
-import { investment_operations } from "./InvestmentOperation";
+import { Account } from "./Account";
+import { Category } from "./Category";
+import { Transaction } from "./Transaction";
+import { Asset } from "./Asset";
+import { InvestmentOperation } from "./InvestmentOperation";
 
 
 @Entity("users")
-export class users {
+export class User {
     @PrimaryGeneratedColumn("increment")
     id?: number;
 
@@ -23,18 +23,18 @@ export class users {
     @UpdateDateColumn()
     updatedAt?: Date;
 
-    @OneToMany(() => accounts, (account) => account.user)
-    accounts?: accounts[];
+    @OneToMany(() => Account, (account) => account.user)
+    accounts?: Account[];
 
-    @OneToMany(() => categories, (category) => category.user)
-    categories?: categories[];
+    @OneToMany(() => Category, (category) => category.user)
+    categories?: Category[];
 
-    @OneToMany(() => transactions, (transaction) => transaction.user)
-    transactions?: transactions[];
+    @OneToMany(() => Transaction, (transaction) => transaction.user)
+    transactions?: Transaction[];
 
-    @OneToMany(() => assets, (asset) => asset.user)
-    assets?: assets[];
+    @OneToMany(() => Asset, (asset) => asset.user)
+    assets?: Asset[];
 
-    @OneToMany(() => investment_operations, (operation) => operation.user)
-    investmentOperations?: investment_operations[];
+    @OneToMany(() => InvestmentOperation, (operation) => operation.user)
+    investmentOperations?: InvestmentOperation[];
 }
