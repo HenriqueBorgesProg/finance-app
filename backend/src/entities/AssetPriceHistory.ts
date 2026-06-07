@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, ManyToOne, JoinColumn } from "typeorm";
-import { assets } from "./Asset";
+import { Asset } from "./Asset";
 
 @Entity("asset_price_history")
 @Index(["assetId", "priceDate", "source"], { unique: true })
-export class asset_price_history {
+export class AssetPriceHistory {
     @PrimaryGeneratedColumn("increment")
     id?: number;
 
@@ -22,7 +22,7 @@ export class asset_price_history {
     @CreateDateColumn()
     createdAt?: Date;
 
-    @ManyToOne(() => assets, (asset) => asset.priceHistory)
+    @ManyToOne(() => Asset, (asset) => asset.priceHistory)
     @JoinColumn({ name: "assetId" })
-    asset?: assets;
+    asset?: Asset;
 }
